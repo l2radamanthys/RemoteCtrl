@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Winamp Comander</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/media/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/media/styles/main-template.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!-- script src="../../assets/js/ie-emulation-modes-warning.js"></script -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="/media/scripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript">
+
+        function CallComand(cmd) {
+            $.ajax({
+                method: "POST",
+                data: { 'cmd': cmd },
+                url: "/winamp-cmd/",
+                success: function(req) {
+                    //alert('ok');
+                    //pass
+                },
+            });
+        }
+
+        $(function() {
+            $("#wnp-play").click(function() { CallComand('play'); return false;});
+            $("#wnp-pause").click(function() { CallComand('pause'); return false;});
+            $("#wnp-stop").click(function() { CallComand('stop'); return false;});
+            $("#wnp-prev").click(function() { CallComand('prev'); return false;});
+            $("#wnp-rewind").click(function() { CallComand('rewind'); return false;});
+            $("#wnp-forward").click(function() { CallComand('forward'); return false;});
+            $("#wnp-next").click(function() { CallComand('next'); return false;});
+
+            $("#wnp-volup").click(function() { CallComand('volup'); return false;});
+            $("#wnp-voldn").click(function() { CallComand('voldn'); return false;});
+            $("#wnp-voloff").click(function() { CallComand('volume 0'); return false;});
+            $("#wnp-repeat").click(function() { CallComand('swrepeat'); return false;});
+            $("#wnp-random").click(function() { CallComand('swshuffle'); return false;});
+        });
+
+    </script>
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Remote Ctrl</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">PC</a></li>
+            <li><a href="#">Winamp</a></li>
+            <li><a href="#">Power Point</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="container">
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div>Reproduciendo: </div>
+
+        <br>
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6">
+                <div class="btn-group btn-group-lg  btn-group-justified">
+                    <a href="#" id="wnp-pause" class="btn btn-default"><span class="glyphicon glyphicon-pause"></span></a>
+                    <a href="#" id="wnp-play" class="btn btn-primary"><span class="glyphicon glyphicon-play"></span></a>
+                    <a href="#" id="wnp-stop" class="btn btn-default"><span class="glyphicon glyphicon-stop"></span></a>
+                </div>
+
+                <br>
+
+                <div class="btn-group btn-group-lg btn-group-justified">
+                    <a href="#" id="wnp-prev" class="btn btn-default"><span class="glyphicon glyphicon-fast-backward"></span></a>
+                    <a href="#" id="wnp-backward" class="btn btn-default"><span class="glyphicon glyphicon-backward"></span></a>                    
+                    <a href="#" id="wnp-foward" class="btn btn-default"><span class="glyphicon glyphicon-forward"></span></a>
+                    <a href="#" id="wnp-next" class="btn btn-default"><span class="glyphicon glyphicon-fast-forward"></span></a>
+                </div>
+
+                <br>
+
+                <div class="btn-group btn-group-lg btn-group-justified">
+                    <a href="#" id="wnp-voldn" class="btn btn-default"><span class="glyphicon glyphicon-volume-down"></span></a>
+                    <a href="#" id="wnp-volup" class="btn btn-default"><span class="glyphicon glyphicon-volume-up"></span></a>
+                    <a href="#" id="wnp-voloff" class="btn btn-default"><span class="glyphicon glyphicon-volume-off"></span></a>
+
+                    <a href="#" id="wnp-random" class="btn btn-default"><span class="glyphicon glyphicon-random"></span></a>
+                    <a href="#" id="wnp-repeat" class="btn btn-default"><span class="glyphicon glyphicon-repeat"></span></a>
+                </div>    
+
+                <br>
+                <br>
+
+                <div>
+                    
+                </div>
+            </div>
+        </div>
+
+
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/media/bootstrap/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- script src="../../assets/js/ie10-viewport-bug-workaround.js"></script -->
+  </body>
+</html>
