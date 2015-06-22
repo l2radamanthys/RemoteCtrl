@@ -6,11 +6,32 @@ import bottle
 from bottle import template, request, response
 import os
 import sys
+from libs.comands import wnpcmd
 from settings import *
 
 
 def index():
-    return template("index.html")
+    return template("home.html")
+
+
+
+def computer():
+    return template("desktop.html")
+
+
+
+def computer_cmd():
+    """
+    """
+    cmd = request.forms.get('cmd')
+    command = COMPUTER_CMD + cmd
+    os.system(command)
+    print command
+
+
+
+def present():
+    return template("present.html")
 
 
 
@@ -20,10 +41,29 @@ def winamp():
 
 
 def winamp_cmd():
+    """
+    """
     cmd = request.forms.get('cmd')
-    command = "{}\\bin\\clever.exe {}".format(ROOT_PATH, cmd)
-    print command
-    os.system(command)
+    if cmd in WINAMP_CMDS:
+        wnpcmd(cmd)
+        #print cmd
+
+    else:
+        #command = "{}\\bin\\clever.exe {}".format(ROOT_PATH, cmd)
+        command = WINAMP_CMD + cmd
+        os.system(command)
+        #print command
+
+
+
+def winamp_playing():
+    """
+        Retorna el titulo de la cancion que suena en winamp
+    """
+    song = wnpcmd('current-song')
+    if song == "":
+        song = "----------------------"
+    return song
 
 
 

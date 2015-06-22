@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Winamp Comander</title>
+    <title>PC Comander</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/media/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -28,32 +28,49 @@
     <script src="/media/scripts/jquery-2.1.4.min.js"></script>
     <script type="text/javascript">
 
-        function CallComand(cmd) {
+
+
+        function getPayingTitle()
+        {
+             $.ajax({
+                method: "GET",
+                url: "/winamp-current-song/",
+                success: function(req) {
+                    $("#current-song").html(req);
+                },
+            });
+        }
+
+
+        function callComand(cmd) {
             $.ajax({
                 method: "POST",
                 data: { 'cmd': cmd },
                 url: "/winamp-cmd/",
                 success: function(req) {
-                    //alert('ok');
-                    //pass
+                    getPayingTitle();
                 },
             });
         }
 
-        $(function() {
-            $("#wnp-play").click(function() { CallComand('play'); return false;});
-            $("#wnp-pause").click(function() { CallComand('pause'); return false;});
-            $("#wnp-stop").click(function() { CallComand('stop'); return false;});
-            $("#wnp-prev").click(function() { CallComand('prev'); return false;});
-            $("#wnp-rewind").click(function() { CallComand('rewind'); return false;});
-            $("#wnp-forward").click(function() { CallComand('forward'); return false;});
-            $("#wnp-next").click(function() { CallComand('next'); return false;});
 
-            $("#wnp-volup").click(function() { CallComand('volup'); return false;});
-            $("#wnp-voldn").click(function() { CallComand('voldn'); return false;});
-            $("#wnp-voloff").click(function() { CallComand('volume 0'); return false;});
-            $("#wnp-repeat").click(function() { CallComand('swrepeat'); return false;});
-            $("#wnp-random").click(function() { CallComand('swshuffle'); return false;});
+        $(function() {
+            $("#wnp-play").click(function() { callComand('play'); return false;});
+            $("#wnp-pause").click(function() { callComand('pause'); return false;});
+            $("#wnp-stop").click(function() { callComand('stop'); return false;});
+            $("#wnp-prev").click(function() { callComand('prev'); return false;});
+            $("#wnp-rewind").click(function() { callComand('rewind'); return false;});
+            $("#wnp-forward").click(function() { callComand('forward'); return false;});
+            $("#wnp-next").click(function() { callComand('next'); return false;});
+
+            $("#wnp-volup").click(function() { callComand('volup'); return false;});
+            $("#wnp-voldn").click(function() { callComand('voldn'); return false;});
+            $("#wnp-voloff").click(function() { callComand('volume 0'); return false;});
+            $("#wnp-repeat").click(function() { callComand('swrepeat'); return false;});
+            $("#wnp-random").click(function() { callComand('swshuffle'); return false;});
+
+            getPayingTitle();
+            setInterval( getPayingTitle, 5000);
         });
 
     </script>
@@ -71,14 +88,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Remote Ctrl</a>
+          <a class="navbar-brand" href="/">Remote Ctrl</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">PC</a></li>
-            <li><a href="#">Winamp</a></li>
-            <li><a href="#">Power Point</a></li>
+            <li><a href="/pc/">PC</a></li>
+            <li><a href="/winamp/">Winamp</a></li>
+            <li><a href="/present/">Power Point</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -87,26 +103,27 @@
         <br>
         <br>
         <br>
-        <br>
 
-        <div>Reproduciendo: </div>
-
-        <br>
         <div class="row">
             <div class="col-md-3">
             </div>
             <div class="col-md-6">
+
+                <div class="thumbnail">
+                    <h3 style="text-align:center;"><strong>Reproduciendo:</strong> <span id="current-song"></span></h3>
+                </div>
+                <br>
                 <div class="btn-group btn-group-lg  btn-group-justified">
-                    <a href="#" id="wnp-pause" class="btn btn-default"><span class="glyphicon glyphicon-pause"></span></a>
-                    <a href="#" id="wnp-play" class="btn btn-primary"><span class="glyphicon glyphicon-play"></span></a>
-                    <a href="#" id="wnp-stop" class="btn btn-default"><span class="glyphicon glyphicon-stop"></span></a>
+                    <a href="#" id="wnp-pause" class="btn btn-default"><span class="glyphicon glyphicon-pause"> PAUSE</span></a>
+                    <a href="#" id="wnp-play" class="btn btn-primary"><span class="glyphicon glyphicon-play"> PLAY</span></a>
+                    <a href="#" id="wnp-stop" class="btn btn-default"><span class="glyphicon glyphicon-stop"> STOP</span></a>
                 </div>
 
                 <br>
 
                 <div class="btn-group btn-group-lg btn-group-justified">
                     <a href="#" id="wnp-prev" class="btn btn-default"><span class="glyphicon glyphicon-fast-backward"></span></a>
-                    <a href="#" id="wnp-backward" class="btn btn-default"><span class="glyphicon glyphicon-backward"></span></a>                    
+                    <a href="#" id="wnp-backward" class="btn btn-default"><span class="glyphicon glyphicon-backward"></span></a>
                     <a href="#" id="wnp-foward" class="btn btn-default"><span class="glyphicon glyphicon-forward"></span></a>
                     <a href="#" id="wnp-next" class="btn btn-default"><span class="glyphicon glyphicon-fast-forward"></span></a>
                 </div>
@@ -120,13 +137,12 @@
 
                     <a href="#" id="wnp-random" class="btn btn-default"><span class="glyphicon glyphicon-random"></span></a>
                     <a href="#" id="wnp-repeat" class="btn btn-default"><span class="glyphicon glyphicon-repeat"></span></a>
-                </div>    
+                </div>
 
                 <br>
                 <br>
-
                 <div>
-                    
+
                 </div>
             </div>
         </div>

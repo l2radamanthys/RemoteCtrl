@@ -10,9 +10,14 @@ from settings import *
 #urls ruteo de aplicacion
 urls = [
     ("/", ["GET"], views.index),
+    ("", ["GET"], views.index),
+    ("/pc/", ["GET"], views.computer),
+    ("/pc-cmd/", ["POST"], views.computer_cmd),
     ("/winamp/", ["GET"], views.winamp),
     ("/winamp-cmd/", ["POST"], views.winamp_cmd),
-
+    ("/winamp-current-song/", ["GET"], views.winamp_playing),
+    ("/present/", ["GET"], views.present),
+    #static
     ("/media/<filename:path>", ["GET"], views.static_),
 ]
 
@@ -33,7 +38,6 @@ urls_routing(app)
 bottle.debug(mode=DEBUG)
 bottle.run(
         app=app,
-        #app=StripPathMiddleware(app),
         server='auto',
         host=HOST,
         quiet=not DEBUG, #show stderr and stdout in console
